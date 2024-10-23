@@ -7,3 +7,6 @@ Generates DW2Lang language files for [wkDLang](https://github.com/Dawid8plc/wkDL
 
 # Download
 The latest version can always be downloaded from [here](https://github.com/Dawid8plc/DW2SMT/releases/latest/download/DW2SMT.zip)
+
+# Usage
+Please check out [Getting Started](https://github.com/Dawid8plc/DW2SMT/wiki/Getting-Started)!
