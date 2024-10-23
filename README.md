@@ -1,4 +1,8 @@
-# DW2SMT - Worms 2 String Mod Tool
+<img align="left" width="128" src="https://github.com/user-attachments/assets/ca30ad7c-5e05-4dd3-ba3e-e12d479855f9" /> <h1>DW2SMT<br/>
+Worms 2 String Mod Tool
+
+</h1>
+
 Generates DW2Lang language files for [wkDLang](https://github.com/Dawid8plc/wkDLang) that can be used to translate Worms 2
 
 # Requirements
