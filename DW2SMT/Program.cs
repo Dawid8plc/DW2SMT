@@ -10,7 +10,7 @@ namespace DW2SMT
 
         public static int ProjectVer = 1;
 
-        public static string version = "1.0.0";
+        public static string version = "1.0.1";
         public static string versionQuote = "\"New Horizons\"";
 
         /// <summary>

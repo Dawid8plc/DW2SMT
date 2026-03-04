@@ -261,5 +261,61 @@ namespace DW2SMT
         {
             ProjectManager.curProject.Encoding = Encoding.GetEncoding(encodings[encodingBox.SelectedIndex].CodePage);
         }
+
+        private void exportTextFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (txtSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(txtSaveFileDialog.FileName))
+                    {
+                        for (int i = 0; i < ProjectManager.curProject.UserStrings.Count; i++)
+                        {
+                            UserString? item = ProjectManager.curProject.UserStrings[i];
+                            writer.WriteLine(item.Value);
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while exporting the text file.\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void importTextFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (txtOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (customBox.Focused)
+                    ActiveControl = null;
+
+                try
+                {
+
+                    using (StreamReader reader = new StreamReader(txtOpenFileDialog.FileName))
+                    {
+                        for (int i = 0; i < ProjectManager.curProject.UserStrings.Count; i++)
+                        {
+                            UserString? item = ProjectManager.curProject.UserStrings[i];
+
+                            item.Value = reader.ReadLine();
+
+                            if (item.Value == null)
+                            {
+                                item.Value = string.Empty;
+                            }
+
+                            mainListView.Items[i].SubItems[2].Text = item.Value;
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while importing the text file.\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
