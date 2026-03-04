@@ -101,6 +101,100 @@ namespace DW2SMT.Properties {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu 20= 
+        ///21=!
+        ///22=&quot;
+        ///23=#
+        ///24=$
+        ///25=%
+        ///26=&amp;
+        ///27=&apos;
+        ///28=(
+        ///29=)
+        ///2A=*
+        ///2B=+
+        ///2C=,
+        ///2D=-
+        ///2E=.
+        ///2F=/
+        ///30=0
+        ///31=1
+        ///32=2
+        ///33=3
+        ///34=4
+        ///35=5
+        ///36=6
+        ///37=7
+        ///38=8
+        ///39=9
+        ///3A=:
+        ///3B=;
+        ///3C=&lt;
+        ///3D==
+        ///3E=&gt;
+        ///3F=?
+        ///40=@
+        ///41=A
+        ///42=B
+        ///43=C
+        ///44=D
+        ///45=E
+        ///46=F
+        ///47=G
+        ///48=H
+        ///49=I
+        ///4A=J
+        ///4B=K
+        ///4C=L
+        ///4D=M
+        ///4E=N
+        ///4F=0
+        ///50=P
+        ///51=Q
+        ///52=R
+        ///53=S
+        ///54=T
+        ///55=U
+        ///56=V
+        ///57=W
+        ///58=X
+        ///59=Y
+        ///5A=Z
+        ///5B=[
+        ///5C=\
+        ///5D=]
+        ///5E=^
+        ///5F=_
+        ///60=`
+        ///61=a
+        ///62=b
+        ///63=c
+        ///64=d
+        ///65=e
+        ///66=f
+        ///67=g
+        ///68=h
+        ///69=i
+        ///6A=j
+        ///6B=k
+        ///6C=l
+        ///6D=m
+        ///6E=n
+        ///6F=o
+        ///70=p
+        ///71=q
+        ///72=r
+        ///73=s
+        ///74=t
+        ///75 [obcięto pozostałą część ciągu]&quot;;.
+        /// </summary>
+        internal static string Worms2TABLE {
+            get {
+                return ResourceManager.GetString("Worms2TABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap X_button {

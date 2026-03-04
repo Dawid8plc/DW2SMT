@@ -64,6 +64,18 @@ namespace DW2SMT
 
             if (mainListView.Items.Count > 0)
                 mainListView.Items[0].Selected = true;
+
+
+
+            foreach (var item in ProjectManager.curProject.Tbl)
+            {
+                ListViewItem tblItem = new ListViewItem(item.Original.ToString());
+                tblItem.SubItems.Add(item.Custom.ToString());
+                charListView.Items.Add(tblItem);
+            }
+
+            if (charListView.Items.Count > 0)
+                charListView.Items[0].Selected = true;
         }
 
         private void mainListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -260,6 +272,48 @@ namespace DW2SMT
         private void encodingBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ProjectManager.curProject.Encoding = Encoding.GetEncoding(encodings[encodingBox.SelectedIndex].CodePage);
+        }
+
+        private void charListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (charListView.SelectedIndices.Count == 0)
+                return;
+
+            vanillaCharBox.Text = ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Original.ToString();
+            customCharBox.Text = ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom.ToString();
+            customCharHexBox.Text = ((int)ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom).ToString("X2");
+        }
+
+        private void customCharBox_Leave(object sender, EventArgs e)
+        {
+            if (charListView.SelectedIndices.Count == 0)
+                return;
+
+            if (customCharBox.Text.Length == 0)
+                customCharBox.Text = " ";
+
+            charListView.SelectedItems[0].SubItems[1].Text = customCharBox.Text;
+            ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom = customCharBox.Text[0];
+
+            customCharHexBox.Text = ((int)ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom).ToString("X2");
+        }
+
+        private void customCharHexBox_Leave(object sender, EventArgs e)
+        {
+            if (charListView.SelectedIndices.Count == 0)
+                return;
+
+            if (customCharHexBox.Text.Length == 0 || customCharHexBox.Text.Length == 1) {
+                customCharHexBox.Text = ((int)ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom).ToString("X2");
+                return;
+            }
+
+            char result = (char)Convert.ToByte(customCharHexBox.Text, 16);
+
+            ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom = result;
+
+            customCharBox.Text = ProjectManager.curProject.Tbl[charListView.SelectedIndices[0]].Custom.ToString();
+            charListView.SelectedItems[0].SubItems[1].Text = customCharBox.Text;
         }
     }
 }

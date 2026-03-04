@@ -8,9 +8,9 @@ namespace DW2SMT
         public static string BasePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public static string RecentPath = Path.Combine(BasePath, "Recent.xml");
 
-        public static int ProjectVer = 1;
+        public static int ProjectVer = 2;
 
-        public static string version = "1.0.0";
+        public static string version = "1.0.1";
         public static string versionQuote = "\"New Horizons\"";
 
         /// <summary>
@@ -28,6 +28,8 @@ namespace DW2SMT
             MapManager.LoadMap();
 
             RecentManager.Initialize();
+
+            ProjectManager.Initialize();
 
             try
             {

@@ -1,11 +1,20 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using DW2SMT.Data;
+using DW2SMT.Properties;
 
 namespace DW2SMT.Managers
 {
     internal class ProjectManager
     {
         public static Project curProject;
+
+        static List<TblItem> DefaultTbl = new List<TblItem>();
+
+        public static void Initialize()
+        {
+            LoadDefaultTbl();
+        }
 
         public static void CreateNew()
         {
@@ -17,6 +26,8 @@ namespace DW2SMT.Managers
 
                 project.UserStrings.Add(new UserString() { ID = i, Offsets = item.StreamPos, Value = string.Empty });
             }
+
+            project.Tbl = GenDefaultTbl();
 
             curProject = project;
         }
@@ -47,7 +58,23 @@ namespace DW2SMT.Managers
 
             BinaryWriter writer = new BinaryWriter(fstream);
 
+            foreach (var userString in curProject.UserStrings)
+            {
+                foreach (var tbl in curProject.Tbl)
+                {
+                    userString.Value = userString.Value.Replace(tbl.Custom, tbl.Original);
+                }
+            }
+
             curProject.Write(writer);
+
+            foreach (var userString in curProject.UserStrings)
+            {
+                foreach (var tbl in curProject.Tbl)
+                {
+                    userString.Value = userString.Value.Replace(tbl.Original, tbl.Custom);
+                }
+            }
 
             fstream.Close();
         }
@@ -71,6 +98,19 @@ namespace DW2SMT.Managers
                     fstream.Close();
 
                     proj.Location = text;
+
+                    if(proj.FileFormatVer == 1)
+                    {
+                        MessageBox.Show("This project has been created with an older version of the tool. The encoding setting has been removed in favor of the Characters tab.");
+                    }
+
+                    foreach (var userString in proj.UserStrings)
+                    {
+                        foreach (var tbl in proj.Tbl)
+                        {
+                            userString.Value = userString.Value.Replace(tbl.Original, tbl.Custom);
+                        }
+                    }
 
                     RecentManager.OpenedProject(proj, text);
                 }
@@ -123,6 +163,50 @@ namespace DW2SMT.Managers
             }
 
             return project;
+        }
+
+        public static List<TblItem> GenDefaultTbl()
+        {
+            List<TblItem> items = new List<TblItem>();
+
+            foreach (var item in DefaultTbl)
+            {
+                items.Add(new TblItem(item.Original, item.Custom));
+            }
+
+            return items;
+        }
+
+        static void LoadDefaultTbl()
+        {
+            var tblLines = ReadLines(() => Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("DW2SMT.Resources.Worms2TABLE.txt"),
+                  Encoding.UTF8)
+            .ToList();
+
+            DefaultTbl.Clear();
+
+            foreach (var line in tblLines)
+            {
+                char originalval = line[3];
+                char customval = (char)Convert.ToByte(line.Substring(0, 2), 16);
+
+                DefaultTbl.Add(new TblItem(originalval, customval));
+            }
+        }
+
+        static IEnumerable<string> ReadLines(Func<Stream> streamProvider,
+                                     Encoding encoding)
+        {
+            using (var stream = streamProvider())
+            using (var reader = new StreamReader(stream, encoding))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
         }
     }
 }

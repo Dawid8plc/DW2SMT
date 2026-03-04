@@ -52,6 +52,13 @@
             saveFileDialog1 = new SaveFileDialog();
             tabControl = new TabControl();
             editorTab = new TabPage();
+            tblTab = new TabPage();
+            customCharHexBox = new TextBox();
+            customCharBox = new TextBox();
+            charListView = new ListView();
+            originalCharColumn = new ColumnHeader();
+            customCharColumn = new ColumnHeader();
+            vanillaCharBox = new TextBox();
             projectSettingsTab = new TabPage();
             label2 = new Label();
             encodingBox = new ComboBox();
@@ -61,6 +68,7 @@
             menuStrip1.SuspendLayout();
             tabControl.SuspendLayout();
             editorTab.SuspendLayout();
+            tblTab.SuspendLayout();
             projectSettingsTab.SuspendLayout();
             SuspendLayout();
             // 
@@ -221,6 +229,7 @@
             // tabControl
             // 
             tabControl.Controls.Add(editorTab);
+            tabControl.Controls.Add(tblTab);
             tabControl.Controls.Add(projectSettingsTab);
             tabControl.Dock = DockStyle.Fill;
             tabControl.Location = new Point(0, 24);
@@ -241,6 +250,79 @@
             editorTab.TabIndex = 0;
             editorTab.Text = "Editor";
             editorTab.UseVisualStyleBackColor = true;
+            // 
+            // tblTab
+            // 
+            tblTab.Controls.Add(customCharHexBox);
+            tblTab.Controls.Add(customCharBox);
+            tblTab.Controls.Add(charListView);
+            tblTab.Controls.Add(vanillaCharBox);
+            tblTab.Location = new Point(4, 24);
+            tblTab.Name = "tblTab";
+            tblTab.Padding = new Padding(3);
+            tblTab.Size = new Size(792, 568);
+            tblTab.TabIndex = 2;
+            tblTab.Text = "Characters";
+            tblTab.UseVisualStyleBackColor = true;
+            // 
+            // customCharHexBox
+            // 
+            customCharHexBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            customCharHexBox.Location = new Point(0, 545);
+            customCharHexBox.MaxLength = 2;
+            customCharHexBox.Name = "customCharHexBox";
+            customCharHexBox.ScrollBars = ScrollBars.Both;
+            customCharHexBox.Size = new Size(792, 23);
+            customCharHexBox.TabIndex = 7;
+            customCharHexBox.Leave += customCharHexBox_Leave;
+            // 
+            // customCharBox
+            // 
+            customCharBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            customCharBox.Location = new Point(0, 516);
+            customCharBox.MaxLength = 1;
+            customCharBox.Name = "customCharBox";
+            customCharBox.ScrollBars = ScrollBars.Both;
+            customCharBox.Size = new Size(792, 23);
+            customCharBox.TabIndex = 6;
+            customCharBox.Leave += customCharBox_Leave;
+            // 
+            // charListView
+            // 
+            charListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            charListView.Columns.AddRange(new ColumnHeader[] { originalCharColumn, customCharColumn });
+            charListView.FullRowSelect = true;
+            charListView.GridLines = true;
+            charListView.Location = new Point(0, 0);
+            charListView.MultiSelect = false;
+            charListView.Name = "charListView";
+            charListView.Size = new Size(792, 469);
+            charListView.TabIndex = 4;
+            charListView.UseCompatibleStateImageBehavior = false;
+            charListView.View = View.Details;
+            charListView.SelectedIndexChanged += charListView_SelectedIndexChanged;
+            // 
+            // originalCharColumn
+            // 
+            originalCharColumn.Text = "Original";
+            originalCharColumn.Width = 385;
+            // 
+            // customCharColumn
+            // 
+            customCharColumn.Text = "Custom";
+            customCharColumn.Width = 385;
+            // 
+            // vanillaCharBox
+            // 
+            vanillaCharBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            vanillaCharBox.BackColor = SystemColors.Window;
+            vanillaCharBox.Location = new Point(0, 475);
+            vanillaCharBox.MaxLength = 1;
+            vanillaCharBox.Name = "vanillaCharBox";
+            vanillaCharBox.ReadOnly = true;
+            vanillaCharBox.ScrollBars = ScrollBars.Both;
+            vanillaCharBox.Size = new Size(792, 23);
+            vanillaCharBox.TabIndex = 5;
             // 
             // projectSettingsTab
             // 
@@ -267,6 +349,7 @@
             label2.Size = new Size(52, 13);
             label2.TabIndex = 17;
             label2.Text = "Encoding";
+            label2.Visible = false;
             // 
             // encodingBox
             // 
@@ -276,6 +359,7 @@
             encodingBox.Name = "encodingBox";
             encodingBox.Size = new Size(417, 23);
             encodingBox.TabIndex = 16;
+            encodingBox.Visible = false;
             encodingBox.SelectedIndexChanged += encodingBox_SelectedIndexChanged;
             // 
             // label5
@@ -332,6 +416,8 @@
             tabControl.ResumeLayout(false);
             editorTab.ResumeLayout(false);
             editorTab.PerformLayout();
+            tblTab.ResumeLayout(false);
+            tblTab.PerformLayout();
             projectSettingsTab.ResumeLayout(false);
             projectSettingsTab.PerformLayout();
             ResumeLayout(false);
@@ -368,5 +454,12 @@
         private ToolStripMenuItem searchToolStripMenuItem;
         private Label label2;
         private ComboBox encodingBox;
+        private TabPage tblTab;
+        private TextBox customCharBox;
+        internal ListView charListView;
+        private ColumnHeader originalCharColumn;
+        private ColumnHeader customCharColumn;
+        private TextBox vanillaCharBox;
+        private TextBox customCharHexBox;
     }
 }
