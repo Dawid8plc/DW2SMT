@@ -9,6 +9,7 @@
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>Resources\DW2SMT Large.ico</ApplicationIcon>
     <Company>Dawid8</Company>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
